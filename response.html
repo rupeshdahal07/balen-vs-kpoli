@@ -1,0 +1,987 @@
+<div id="okel-home-candidate-directory-block" class="okel-segment-block okel-election-instincts-block max-md:px-[20px] mt-8 md:mt-10">
+    <div class="okel-segment-title mb-5 flex justify-between items-center">
+        <h2 class="font-anek font-bold leading-[1]!">उम्मेदवार डाइरेक्टरी</h2>
+        <a href="https://election.onlinekhabar.com/candidate-directories" class="flex gap-2 items-center font-inter font-bold text-[14px] text-[#000D4D] hover:text-[var(--primary)] transition">
+            View All
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current">
+                <path d="M1 6.5H12M12 6.5L6.5 1M12 6.5L6.5 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </a>
+    </div>
+
+    <div class="okel-directory-wrapper mt-5 bg-white p-5 rounded-[8px]">
+        <form method="get" action="" class="okel-home-directory-filter-form flex border-b border-[#E5E7ED] flex-nowrap md:flex-wrap gap-4 items-center justify-between pb-5 mb-5 overflow-x-auto no-scrollbar">
+            <div class="flex items-center gap-3 w-max">
+                <span class="font-bold text-[#555] whitespace-nowrap text-[15px]">Filter:</span>
+
+                <select name="cd_state_id" class="border border-[#E7E7E7] bg-white rounded-[4px] px-3 py-2.5 text-[14px] text-[#555] outline-none min-w-[140px]">
+                    <option value="0">प्रदेश सबै</option>
+                                            <option value="4"  selected='selected'>
+                            कोशी प्रदेश                        </option>
+                                            <option value="3" >
+                            मधेश प्रदेश                        </option>
+                                            <option value="5" >
+                            बागमती प्रदेश                        </option>
+                                            <option value="2" >
+                            गण्डकी प्रदेश                        </option>
+                                            <option value="6" >
+                            लुम्बिनी प्रदेश                        </option>
+                                            <option value="7" >
+                            कर्णाली प्रदेश                        </option>
+                                            <option value="1" >
+                            सुदूरपश्‍चिम प्रदेश                        </option>
+                                    </select>
+
+                <select name="cd_district_id" class="border border-[#E7E7E7] bg-white rounded-[4px] px-3 py-2.5 text-[14px] text-[#555] outline-none min-w-[140px]">
+                    <option value="0">जिल्ला सबै</option>
+                                            <option value="5" >
+                            इलाम                        </option>
+                                            <option value="12" >
+                            उदयपुर                        </option>
+                                            <option value="13" >
+                            ओखलढुंगा                        </option>
+                                            <option value="14" >
+                            खोटाङ                        </option>
+                                            <option value="6"  selected='selected'>
+                            झापा                        </option>
+                                            <option value="3" >
+                            ताप्लेजुङ                        </option>
+                                            <option value="8" >
+                            तेह्रथुम                        </option>
+                                            <option value="10" >
+                            धनकुटा                        </option>
+                                            <option value="4" >
+                            पाँचथर                        </option>
+                                            <option value="9" >
+                            भोजपुर                        </option>
+                                            <option value="11" >
+                            मोरङ                        </option>
+                                            <option value="7" >
+                            संखुवासभा                        </option>
+                                            <option value="16" >
+                            सुनसरी                        </option>
+                                            <option value="15" >
+                            सोलुखुम्बु                        </option>
+                                    </select>
+
+                <select name="cd_chetra_id" class="border border-[#E7E7E7] bg-white rounded-[4px] px-3 py-2.5 text-[14px] text-[#555] outline-none min-w-[160px]">
+                    <option value="0">निर्वाचनक्षेत्र सबै</option>
+                                            <option value="21" >
+                            झापा - १                        </option>
+                                            <option value="22" >
+                            झापा - २                        </option>
+                                            <option value="23" >
+                            झापा - ३                        </option>
+                                            <option value="24" >
+                            झापा - ४                        </option>
+                                            <option value="25"  selected='selected'>
+                            झापा - ५                        </option>
+                                    </select>
+
+                <select name="cd_party_id" class="border border-[#E7E7E7] bg-white rounded-[4px] px-3 py-2.5 text-[14px] text-[#555] outline-none min-w-[160px]">
+                    <option value="0">पार्टी सबै</option>
+                                            <option value="2" >
+                            नेपाली कांग्रेस                        </option>
+                                            <option value="1" >
+                            नेकपा एमाले                        </option>
+                                            <option value="99" >
+                            नेपाली कम्युनिस्ट पार्टी                        </option>
+                                            <option value="94" >
+                            राष्ट्रिय स्वतन्त्र पार्टी                        </option>
+                                            <option value="4" >
+                            राष्ट्रिय प्रजातन्त्र पार्टी                        </option>
+                                            <option value="41" >
+                            जनता समाजवादी पार्टी, नेपाल                        </option>
+                                            <option value="48" >
+                            जनमत पार्टी                        </option>
+                                            <option value="61" >
+                            नागरिक उन्मुक्ति पार्टी, नेपाल                        </option>
+                                            <option value="111" >
+                            आम जनता पार्टी                        </option>
+                                            <option value="10" >
+                            नेपाल मजदुर किसान पार्टी                        </option>
+                                            <option value="103" >
+                            उज्यालो नेपाल पार्टी                        </option>
+                                            <option value="8" >
+                            राष्ट्रिय जनमोर्चा                        </option>
+                                            <option value="101" >
+                            श्रम संस्कृति पार्टी                        </option>
+                                            <option value="100" >
+                            नेपाल जनमुक्ति पार्टी                        </option>
+                                            <option value="105" >
+                            प्रगतिशील लोकतान्त्रिक पार्टी                        </option>
+                                            <option value="95" >
+                            हाम्रो नेपाली पार्टी                        </option>
+                                            <option value="67" >
+                            नेपाल संघीय समाजवादी पार्टी                        </option>
+                                            <option value="143" >
+                            राष्ट्रिय ऊर्जाशील पार्टी, नेपाल                        </option>
+                                            <option value="106" >
+                            राष्ट्रिय परिवर्तन पार्टी                        </option>
+                                            <option value="107" >
+                            राष्ट्रिय मुक्ति पार्टी, नेपाल                        </option>
+                                            <option value="102" >
+                            नेपाल कम्युनिस्ट पार्टी (माओवादी)                        </option>
+                                            <option value="108" >
+                            नेशनल रिपब्लिक नेपाल                        </option>
+                                            <option value="7" >
+                            नेकपा माले                        </option>
+                                            <option value="109" >
+                            पिपुल फर्स्ट पार्टी                        </option>
+                                            <option value="37" >
+                            संघीय लोकतान्त्रिक राष्ट्रिय मञ्च                        </option>
+                                            <option value="110" >
+                            नेपाली जनश्रमदान संस्कृति पार्टी                        </option>
+                                            <option value="112" >
+                            मितेरी पार्टी नेपाल                        </option>
+                                            <option value="113" >
+                            संयुक्त नागरिक पार्टी                        </option>
+                                            <option value="114" >
+                            जय मातृभूमि पार्टी                        </option>
+                                            <option value="104" >
+                            जनता समाजवादी पार्टी                        </option>
+                                            <option value="115" >
+                            राष्ट्र निर्माण दल, नेपाल                        </option>
+                                            <option value="116" >
+                            समावेशी समाजवादी पार्टी                        </option>
+                                            <option value="117" >
+                            सार्वभौम नागरिक पार्टी                        </option>
+                                            <option value="118" >
+                            समावेशी समाजवादी पार्टी, नेपाल                        </option>
+                                            <option value="119" >
+                            नागरिक सर्वोच्चता पार्टी, नेपाल                        </option>
+                                            <option value="120" >
+                            नेपाल जनता संरक्षण पार्टी                        </option>
+                                            <option value="121" >
+                            राष्ट्रिय एकता दल                        </option>
+                                            <option value="122" >
+                            स्वाभिमान पार्टी                        </option>
+                                            <option value="123" >
+                            नेपाल संघीय समाजवादी पार्टी                        </option>
+                                            <option value="124" >
+                            जन अधिकार पार्टी                        </option>
+                                            <option value="125" >
+                            जनता लोकतान्त्रिक पार्टी, नेपाल                        </option>
+                                            <option value="127" >
+                            इतिहासिक जनता पार्टी                        </option>
+                                            <option value="128" >
+                            जनादेश पार्टी नेपाल                        </option>
+                                            <option value="129" >
+                            गतिशील लोकतान्त्रिक पार्टी                        </option>
+                                            <option value="130" >
+                            युनाइटेड नेपाल डिमोक्रयाटिक पार्टी                        </option>
+                                            <option value="131" >
+                            त्रिमूल नेपाल                        </option>
+                                            <option value="133" >
+                            नेपाल मानवतावादी पार्टी                        </option>
+                                            <option value="134" >
+                            नेपाल मातृभूमि पार्टी                        </option>
+                                            <option value="135" >
+                            गान्धीवादी पार्टी नेपाल                        </option>
+                                            <option value="21" >
+                            राष्ट्रिय मुक्ति आन्दोलन, नेपाल                        </option>
+                                            <option value="65" >
+                            नेपाल जनता पार्टी                        </option>
+                                            <option value="39" >
+                            संघीय लोकतान्त्रिक राष्ट्रिय मञ्च                        </option>
+                                            <option value="70" >
+                            बहुजन शक्ति पार्टी                        </option>
+                                            <option value="87" >
+                            प्रजातान्त्रिक पार्टी, नेपाल                        </option>
+                                            <option value="47" >
+                            नेपाल लोकतान्त्रिक पार्टी                        </option>
+                                            <option value="82" >
+                            राष्ट्रिय नागरिक पार्टी                        </option>
+                                            <option value="51" >
+                            नेपाली जनता दल                        </option>
+                                            <option value="138" >
+                            मधेशी जनअधिकार फोरम, मधेश                        </option>
+                                            <option value="54" >
+                            नेपाल कम्युनिष्ट पार्टी मार्क्सवादी (पुष्पलाल)                        </option>
+                                            <option value="93" >
+                            नेपाल सद्भावना पार्टी                        </option>
+                                            <option value="73" >
+                            बहुजन एकता पार्टी, नेपाल                        </option>
+                                            <option value="9" >
+                            नेपाल कम्युनिष्ट पार्टी (संयुक्त)                        </option>
+                                            <option value="42" >
+                            मंगोल नेशनल अर्गनाइजेसन                        </option>
+                                            <option value="141" >
+                            राष्ट्रिय जनमत पार्टी                        </option>
+                                            <option value="16" >
+                            राष्ट्रिय जनमुक्ति पार्टी                        </option>
+                                            <option value="32" >
+                            राष्ट्रिय जनता पार्टी नेपाल                        </option>
+                                            <option value="56" >
+                            नेपालका लागि नेपाली पार्टी                        </option>
+                                    </select>
+
+                <select name="cd_gender" class="border border-[#E7E7E7] bg-white rounded-[4px] px-3 py-2.5 text-[14px] text-[#555] outline-none min-w-[120px]">
+                    <option value="">सबै लिङ्‌ग</option>
+                    <option value="male" >पुरुष</option>
+                    <option value="female" >महिला</option>
+                    <option value="other" >अन्य</option>
+                </select>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button type="submit" class="bg-[#1685f8] text-white px-6 py-2.5 rounded-[4px] font-bold text-[12px] hover:bg-[#0c6cd9] transition-colors whitespace-nowrap font-inter">Apply</button>
+                <button type="button" class="okel-home-directory-reset bg-[#F2F2F2] text-[#333] px-6 py-2.5 rounded-[4px] font-bold text-[12px] hover:bg-[#E0E0E0] transition-colors whitespace-nowrap font-inter">Reset</button>
+            </div>
+        </form>
+
+        <div class="bg-white rounded-[6px] overflow-hidden">
+            <div class="table-wrapper overflow-x-auto">
+                <table class="w-full candidate-directory-table text-left border-collapse min-w-[900px]">
+                    <thead>
+                        <tr class="bg-white text-[13px] font-bold border-b-0 opacity-65">
+                            <th class="px-6 py-4 pr-0 whitespace-nowrap uppercase tracking-wider text-left font-inter">SN</th>
+                            <th class="px-6 py-4 whitespace-nowrap uppercase tracking-wider text-left">उम्मेदवार</th>
+                            <th class="px-6 py-4 whitespace-nowrap uppercase tracking-wider text-left">राजनीतिक दल</th>
+                            <th class="px-6 py-4 whitespace-nowrap uppercase tracking-wider text-left">चुनाव क्षेत्र</th>
+                            <th class="px-6 py-4 whitespace-nowrap uppercase tracking-wider text-left">मत</th>
+                            <th class="px-6 py-4 whitespace-nowrap uppercase tracking-wider text-left">स्टाटस</th>
+                            <th class="px-6 py-4 whitespace-nowrap text-left"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="okel-home-directory-tbody text-[14px]">
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/mandhara-chimariya-1-1.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/mandhara-chimariya" class="hover:text-[var(--primary)]!">मन्धरा चिमरिया</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                महिला                                                , ६३ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/Congress.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/nepali-congress" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            नेपाली कांग्रेस                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="flex items-center gap-1.5 text-[#EC3534] font-bold text-[10px] font-inter whitespace-nowrap tracking-wider uppercase">
+                                            <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/icon-fire.svg" alt="Hotseats" class="w-[12px] h-[12px]" />
+                                            HOT SEAT
+                                        </span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/mandhara-chimariya" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    २.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/kp-oli-.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/kp-sharma-oli" class="hover:text-[var(--primary)]!">केपी शर्मा ओली</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ७४ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/UML.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/cpn-uml" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            नेकपा एमाले                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="flex items-center gap-1.5 text-[#EC3534] font-bold text-[10px] font-inter whitespace-nowrap tracking-wider uppercase">
+                                            <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/icon-fire.svg" alt="Hotseats" class="w-[12px] h-[12px]" />
+                                            HOT SEAT
+                                        </span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/kp-sharma-oli" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    ३.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/ranjit-tamang.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/ranjit-tamang" class="hover:text-[var(--primary)]!">रञ्जित तामाङ</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ४३ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/Nepali-Communist-party.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/nepali-communist-party" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            नेपाली कम्युनिस्ट पार्टी                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/ranjit-tamang" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    ४.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/Balen-Shah.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/balen-shah" class="hover:text-[var(--primary)]!">बालेन्द्र शाह (बालेन)</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ३६ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2022/11/Ghanti.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/rastriya-swatantra-party-rsp" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            राष्ट्रिय स्वतन्त्र पार्टी                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="flex items-center gap-1.5 text-[#EC3534] font-bold text-[10px] font-inter whitespace-nowrap tracking-wider uppercase">
+                                            <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/icon-fire.svg" alt="Hotseats" class="w-[12px] h-[12px]" />
+                                            HOT SEAT
+                                        </span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/balen-shah" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    ५.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/laxmi-prasad-sangraula-jhapa-5.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/laxmi-prasad-sangraula" class="hover:text-[var(--primary)]!">लक्ष्मीप्रसाद संग्रौला</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ५४ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/RPP.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/rastriya-prajatantra-party" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            राष्ट्रिय प्रजातन्त्र पार्टी                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/laxmi-prasad-sangraula" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    ६.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/amrit-lal-mahato.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/amrit-lal-mahato" class="hover:text-[var(--primary)]!">अमृतलाल महतो</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ४३ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2022/11/Janamat-1.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/janamat-party" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            जनमत पार्टी                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/amrit-lal-mahato" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    ७.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/dhiren-subba.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/dhiren-subba" class="hover:text-[var(--primary)]!">धीरेन सुब्बा</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ६२ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2022/11/Jasapa.png" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/janata-samajwadi-party-nepal" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            जनता समाजवादी पार्टी, नेपाल                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/dhiren-subba" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    ८.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/samir-tamang.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/samir-tamang" class="hover:text-[var(--primary)]!">समीर तामाङ्ग</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ३३ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/Shram-Sanskriti-party.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/shram-sanskriti-party" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            श्रम संस्कृति पार्टी                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/samir-tamang" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    ९.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/padam-bahadur-jabegu" class="hover:text-[var(--primary)]!">पदमबहादुर जवेगू</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ४८ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/Rastriya-janamukti-party.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/nepal-janamukti-party" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            नेपाल जनमुक्ति पार्टी                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/padam-bahadur-jabegu" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १०.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/sabin-rai" class="hover:text-[var(--primary)]!">सविन राई</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ३५ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/All-chunab-chinha_new-2082-31.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/rastriyaparibartanparty" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            राष्ट्रिय परिवर्तन पार्टी                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/sabin-rai" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    ११.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/amrit-rasaili" class="hover:text-[var(--primary)]!">अमृत रसाइली</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ४४ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/All-chunab-chinha_new-2082-32.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/rastriyamuktipartysingle" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            राष्ट्रिय मुक्ति पार्टी, नेपाल                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/amrit-rasaili" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १२.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/sanjay-rai" class="hover:text-[var(--primary)]!">संजय राई</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ३२ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/gulab.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/umlmaoist" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            नेपाल कम्युनिस्ट पार्टी (माओवादी)                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/sanjay-rai" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १३.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/dharmaraj-guragai" class="hover:text-[var(--primary)]!">धर्मराज गुरागाई</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ४३ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/All-chunab-chinha_new-2082-35.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/peoplefirstparty" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            पिपुल फर्स्ट पार्टी                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/dharmaraj-guragai" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १४.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/sushant-sampang-rai" class="hover:text-[var(--primary)]!">सुशान्त साम्पङ राई</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , २७ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2026/02/All-chunab-chinha_new-2082-35-2.jpg" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/sanghiya-loktrantic-manch" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            संघीय लोकतान्त्रिक राष्ट्रिय मञ्च                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/sushant-sampang-rai" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १५.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/arjun-sapakota" class="hover:text-[var(--primary)]!">अर्जुन सापकोटा</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ३९ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2022/11/swatantra.png" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/independent" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            स्वतन्त्र                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/arjun-sapakota" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १६.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/khemnatha-shivakoti" class="hover:text-[var(--primary)]!">खेमनाथ शिवाकोटी</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ६० वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2022/11/swatantra.png" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/independent" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            स्वतन्त्र                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/khemnatha-shivakoti" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १७.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/dambar-shahu" class="hover:text-[var(--primary)]!">डम्बर शाहु</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ४२ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2022/11/swatantra.png" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/independent" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            स्वतन्त्र                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/dambar-shahu" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १८.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/puskar-khatiwada" class="hover:text-[var(--primary)]!">पुस्कर खतिवडा</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ३० वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2022/11/swatantra.png" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/independent" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            स्वतन्त्र                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/puskar-khatiwada" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    १९.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/prakash-nepal" class="hover:text-[var(--primary)]!">प्रकाश नेपाल</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ४० वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2022/11/swatantra.png" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/independent" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            स्वतन्त्र                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/prakash-nepal" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                                                                <tr>
+                                <td class="px-6 pr-0 py-2 font-bold font-inter text-[15px]">
+                                    २०.
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-4">
+                                        <img src="https://election.onlinekhabar.com/wp-content/themes/election-2082/imgs/default-candidate-photo.jpg" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+                                        <div class="candidate-name-col">
+                                            <h4 class="font-semibold text-[16px] leading-[1.2] text-[rgb(var(--dark)/0.75)] mb-0.5 line-clamp-1">
+                                                <a href="https://election.onlinekhabar.com/central-candidate/matrika-bhattarai" class="hover:text-[var(--primary)]!">मातृका भट्टराई</a>
+                                            </h4>
+                                            <span class="text-[12px] opacity-65 font-medium">
+                                                पुरुष                                                , ४६ वर्ष                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <div class="flex items-center gap-2.5 candidate-party-col">
+                                                                                    <img src="https://election.onlinekhabar.com/wp-content/uploads/2022/11/swatantra.png" class="w-[18px] h-auto object-contain" alt="">
+                                                                                <a href="https://election.onlinekhabar.com/party/independent" class="text-[#555] font-mukta text-[14px] font-medium hover:underline line-clamp-1">
+                                            स्वतन्त्र                                        </a>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-2">
+                                    <a href="https://election.onlinekhabar.com/central-chetra/jhapa5" class="text-[#1685f8] font-bold hover:underline whitespace-nowrap text-[14px]">
+                                        झापा - ५                                    </a>
+                                </td>
+                                <td class="px-6 py-2 text-[#555] font-medium">
+                                    -                                </td>
+                                <td class="px-6 py-2">
+                                                                            <span class="text-[#159e60] font-bold text-[11px] whitespace-nowrap tracking-wider uppercase font-inter">ACTIVE</span>
+                                                                    </td>
+                                <td class="px-6 py-2 text-right">
+                                    <a href="https://election.onlinekhabar.com/central-candidate/matrika-bhattarai" class="text-[#1685f8] font-bold text-[13px] hover:underline underline-offset-2 whitespace-nowrap font-inter">View Profile</a>
+                                </td>
+                            </tr>
+                                            </tbody>
+                </table>
+            </div>
+        </div>
+                    <div class="flex w-full items-center justify-center gap-2 font-inter pt-5">
+                <button type="button" data-next-page="2" class="okel-home-directory-load-more inline-block px-15 py-3 rounded-[6px] bg-[#E5EDFF] text-[#1685f8] hover:bg-[#1685f8] hover:text-white transition-colors font-bold text-[14px]">
+                    Load More..
+                </button>
+            </div>
+            </div>
+</div>

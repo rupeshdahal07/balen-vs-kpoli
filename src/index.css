@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 transition-colors duration-200;
+  }
+  .dark body {
+    @apply bg-darkbg text-slate-100;
+  }
+}
+
+.party-gradient-nc { @apply bg-gradient-to-r from-[#0033A0] to-[#0052cc]; }
+.party-gradient-uml { @apply bg-gradient-to-r from-[#E3000F] to-[#ff3333]; }
+.party-gradient-maoist { @apply bg-gradient-to-r from-[#E3000F] to-[#ff3333]; }
+.party-gradient-rsp { @apply bg-gradient-to-r from-[#002E5D] to-[#004b99]; }
+.party-gradient-rpp { @apply bg-gradient-to-r from-[#0A7A3B] to-[#12a855]; }
+.party-gradient-independent { @apply bg-gradient-to-r from-[#64748B] to-[#94a3b8]; }
+.party-bg-default { @apply bg-gradient-to-r from-gray-500 to-gray-400; }
+
+@layer utilities {
+  .slant-shine {
+    transform: skewX(-20deg) translateX(-150%);
+    animation: shine 3s infinite;
+  }
+}
+
+@keyframes shine {
+  0% { transform: skewX(-20deg) translateX(-250%); }
+  50% { transform: skewX(-20deg) translateX(250%); }
+  100% { transform: skewX(-20deg) translateX(250%); }
+}
