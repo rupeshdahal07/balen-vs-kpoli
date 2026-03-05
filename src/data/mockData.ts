@@ -61,7 +61,7 @@ export const generateMockConstituencies = (): Constituency[] => {
   // Special "Jhapa-5" constituency with ALL the scrapped candidates competing
   let jhapaVotesCounted = 0;
   const jhapaCandidates: Candidate[] = initialCandidatesData.map((c, index) => {
-    const initialVotes = Math.floor(Math.random() * 5000) + 1000;
+    const initialVotes = 0;
     jhapaVotesCounted += initialVotes;
     return {
       id: `jhapa_5_${index}`,
