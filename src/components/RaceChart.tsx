@@ -66,18 +66,18 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
        </div>
 
        {/* X-axis structure */}
-       <div className="absolute top-0 bottom-0 left-[120px] md:left-[220px] right-12 md:right-24 pointer-events-none mt-16 mb-6 border-b-2 border-slate-300 dark:border-slate-600">
+       <div className="absolute top-0 bottom-0 left-[90px] sm:left-[120px] md:left-[220px] right-8 md:right-24 pointer-events-none mt-16 mb-6 border-b-2 border-slate-300 dark:border-slate-600">
           {[0, 20, 40, 60, 80, 100].map((tick) => (
              <div key={tick} className="absolute top-0 bottom-0 flex flex-col justify-end border-l border-slate-200 dark:border-slate-700/50" style={{ left: `${tick}%` }}>
-                <span className="text-xs md:text-sm font-bold text-slate-400 absolute bottom-[-28px] md:bottom-[-30px] -translate-x-1/2">{tick}%</span>
+                <span className="text-[10px] sm:text-xs md:text-sm font-bold text-slate-400 absolute bottom-[-24px] md:bottom-[-30px] -translate-x-1/2">{tick}%</span>
              </div>
           ))}
-          <div className="absolute right-[-20px] md:right-[-40px] bottom-[-24px] md:bottom-[-32px] text-slate-400">
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <div className="absolute right-[-16px] md:right-[-40px] bottom-[-20px] md:bottom-[-32px] text-slate-400">
+             <svg width="20" height="20" className="md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </div>
        </div>
        
-       <div className="relative z-10 mt-6 mb-6 border-l-2 border-slate-400 dark:border-slate-500 ml-[120px] md:ml-[220px]">
+       <div className="relative z-10 mt-6 mb-6 border-l-2 border-slate-400 dark:border-slate-500 ml-[90px] sm:ml-[120px] md:ml-[220px]">
          <AnimatePresence>
             {sorted.map((cand, index) => {
                // Percentage calculated against max votes (lead) to 90% or total votes? 
@@ -100,20 +100,20 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
                    className="flex items-center relative h-14 md:h-16 mb-4 md:mb-5"
                  >
                    {/* Name label on left */}
-                   <div className="absolute left-[-120px] md:left-[-220px] w-[110px] md:w-[200px] text-right pr-4 top-1/2 -translate-y-1/2 flex flex-col justify-center">
-                      <div className="font-bold text-slate-800 dark:text-slate-100 truncate text-xs md:text-base leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                   <div className="absolute left-[-90px] sm:left-[-120px] md:left-[-220px] w-[85px] sm:w-[110px] md:w-[200px] text-right pr-2 md:pr-4 top-1/2 -translate-y-1/2 flex flex-col justify-center">
+                      <div className="font-bold text-slate-800 dark:text-slate-100 truncate text-[11px] sm:text-xs md:text-base leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                          {cand.name}
                       </div>
-                      <div className="text-[10px] md:text-sm text-slate-500 truncate font-medium mt-0.5 opacity-80">
+                      <div className="text-[9px] sm:text-[10px] md:text-sm text-slate-500 truncate font-medium mt-0.5 opacity-80">
                          {cand.party}
                       </div>
-                      <div className="text-[10px] md:text-xs text-slate-700 dark:text-slate-300 font-extrabold mt-1 tracking-wide">
-                         <AnimatedNumber value={cand.votes} /> <span className="text-slate-400 font-semibold opacity-70">VOTES</span>
+                      <div className="text-[9px] sm:text-[10px] md:text-xs text-slate-700 dark:text-slate-300 font-extrabold mt-0.5 md:mt-1 tracking-wide">
+                         <AnimatedNumber value={cand.votes} /> <span className="text-slate-400 font-semibold opacity-70 hidden sm:inline">VOTES</span>
                       </div>
                    </div>
                    
                    {/* Progress Bar Container relative to 0-100% space (which spans the rest of the flex parent) */}
-                   <div className="w-full h-full relative pl-[2px] pr-12 md:pr-24">
+                   <div className="w-full h-full relative pl-[2px] pr-8 sm:pr-12 md:pr-24">
                       {/* Using percentage * 0.9 to reserve space for the image sticking out */}
                        <motion.div 
                          initial={{ width: 0 }}
@@ -141,7 +141,7 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
                          
                          {/* Percentage Under Avatar */}
                          <div 
-                            className="absolute right-0 top-full translate-x-1/2 translate-y-1 md:translate-y-2 font-black text-xs md:text-sm whitespace-nowrap"
+                            className="absolute right-0 top-full translate-x-1/2 translate-y-1 md:translate-y-2 font-black text-[10px] sm:text-xs md:text-sm whitespace-nowrap"
                             style={{ color: textShadowColor }}
                          >
                             {percentage.toFixed(2)}%
@@ -150,9 +150,9 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
                    </div>
                    
                    {/* Winner Trophy placed strictly at 100% position on the right */}
-                   <div className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 flex items-center justify-center pointer-events-none z-30">
+                   <div className="absolute right-0 sm:right-2 md:right-8 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex items-center justify-center pointer-events-none z-30">
                        {index === 0 && cand.votes > 0 && (
-                          <div className="relative animate-bounce drop-shadow-xl text-3xl md:text-5xl" style={{ animationDuration: '2s' }}>
+                          <div className="relative animate-bounce drop-shadow-xl text-xl sm:text-3xl md:text-5xl" style={{ animationDuration: '2s' }}>
                              🏆
                           </div>
                        )}

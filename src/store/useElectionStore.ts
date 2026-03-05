@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { type Constituency, generateMockConstituencies } from '../data/mockData';
 
 interface ElectionState {
@@ -12,11 +13,13 @@ interface ElectionState {
 
 let intervalId: number | null = null;
 
-export const useElectionStore = create<ElectionState>((set) => ({
-  constituencies: generateMockConstituencies(),
-  darkMode: false,
-  lastUpdated: new Date(),
-  toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
+export const useElectionStore = create<ElectionState>()(
+  persist(
+    (set) => ({
+      constituencies: generateMockConstituencies(),
+      darkMode: false,
+      lastUpdated: new Date(),
+      toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
   startLiveUpdates: () => {
     if (intervalId) return;
 
@@ -83,4 +86,10 @@ export const useElectionStore = create<ElectionState>((set) => ({
       intervalId = null;
     }
   }
-}));
+    }),
+    {
+      name: 'election-theme-storage', // key in localStorage
+      partialize: (state) => ({ darkMode: state.darkMode }), // only persist dark mode state, not the live constituencies data
+    }
+  )
+);

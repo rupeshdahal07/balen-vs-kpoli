@@ -9,9 +9,9 @@ const Topbar = () => {
 
   return (
     <header className="py-2 md:py-3 bg-white dark:bg-darkcard border-b border-gray-200 dark:border-slate-700 flex items-center justify-between px-6 sticky top-0 z-20 transition-colors shadow-sm">
-      <div className="flex items-center gap-4 md:mr-5">
+      <div className="flex items-center gap-2 md:gap-4 md:mr-5">
         <div className="inline-block relative">
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-purple-600 to-red-600 dark:from-blue-400 dark:via-purple-400 dark:to-red-400 mb-3 drop-shadow-sm">
+          <h2 className="text-xl sm:text-3xl md:text-5xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-purple-600 to-red-600 dark:from-blue-400 dark:via-purple-400 dark:to-red-400 mb-1 md:mb-3 drop-shadow-sm">
             Jhapa - 5 (Balen vs KP Oli)
           </h2>
           <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-red-600 blur opacity-20 dark:opacity-30 rounded-lg -z-10"></div>
@@ -23,8 +23,8 @@ const Topbar = () => {
         </div>
       </div>
       
-      <div className="flex items-center gap-6">
-        <div className="text-sm text-slate-500 dark:text-slate-400">
+      <div className="flex items-center gap-3 md:gap-6">
+        <div className="hidden sm:block text-xs md:text-sm text-slate-500 dark:text-slate-400">
           Last updated: {format(lastUpdated, 'HH:mm:ss')}
         </div>
         <button
@@ -73,10 +73,10 @@ const Layout = () => {
 
           <div className="max-w-6xl w-full mx-auto pb-4 z-10">
              <div className="mb-2 flex flex-col items-center text-center">
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl px-6 py-2 flex items-center gap-3">
-                   <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]"></div>
-                   <p className="text-slate-600 dark:text-slate-300 font-medium">
-                     Total Votes Counted: <span className="font-bold text-lg text-slate-900 dark:text-white"><AnimatedNumber value={targetConstituency.votesCounted} /></span>
+                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200 dark:border-slate-700 shadow-sm rounded-2xl px-4 md:px-6 py-2 flex items-center gap-2 md:gap-3">
+                   <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]"></div>
+                   <p className="text-xs md:text-base text-slate-600 dark:text-slate-300 font-medium">
+                     Total Votes Counted: <span className="font-bold text-sm md:text-lg text-slate-900 dark:text-white"><AnimatedNumber value={targetConstituency.votesCounted} /></span>
                    </p>
                 </div>
              </div>
