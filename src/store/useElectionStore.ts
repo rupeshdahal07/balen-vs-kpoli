@@ -22,7 +22,7 @@ export const useElectionStore = create<ElectionState>((set) => ({
 
     const fetchLiveData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/election-data');
+        const response = await fetch('http://18.139.160.209:8000/api/election-data');
         const data = await response.json();
         const liveScrapedCandidates = data.candidates;
 
@@ -75,7 +75,7 @@ export const useElectionStore = create<ElectionState>((set) => ({
 
     intervalId = window.setInterval(() => {
       fetchLiveData();
-    }, 10000); // 10 seconds simulate
+    }, 60000); // 60 seconds simulate
   },
   stopLiveUpdates: () => {
     if (intervalId) {
