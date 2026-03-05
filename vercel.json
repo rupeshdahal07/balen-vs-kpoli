@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/election-data",
+      "destination": "http://18.139.160.209:8000/api/election-data"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

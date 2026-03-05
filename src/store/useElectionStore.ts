@@ -25,7 +25,7 @@ export const useElectionStore = create<ElectionState>()(
 
     const fetchLiveData = async () => {
       try {
-        const response = await fetch('http://18.139.160.209:8000/api/election-data');
+        const response = await fetch('/api/election-data');
         const data = await response.json();
         const liveScrapedCandidates = data.candidates;
 
