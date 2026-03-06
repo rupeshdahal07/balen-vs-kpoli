@@ -138,7 +138,7 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
       const CARD_H = 110;
       const CARD_GAP = 16;
       const PAD = 28;
-      const HEADER_H = 130;
+      const HEADER_H = 150;
       const FOOTER_H = 54;
       const H = HEADER_H + topN.length * (CARD_H + CARD_GAP) - CARD_GAP + FOOTER_H + PAD;
 
@@ -189,6 +189,14 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
       ctx.font = 'bold 12px "Arial", sans-serif';
       ctx.fillText('LIVE', W / 2 - 18, 108);
 
+      // Total Votes Counted
+      ctx.fillStyle = '#4b5563';
+      ctx.font = '16px "Arial", sans-serif';
+      ctx.textAlign = 'center';
+      const votesText = `Total Votes Counted: ${totalVotes.toLocaleString()}`;
+      ctx.fillText(votesText, W / 2, 130);
+      ctx.textAlign = 'center';
+
       // ── Candidate cards ──
       // ── Load candidate images from base64 data URIs embedded in API response ──
       const loadImage = (src: string): Promise<HTMLImageElement | null> =>
@@ -197,7 +205,7 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
           const img = new Image();
           img.onload = () => resolve(img);
           img.onerror = () => resolve(null);
-          img.src = src; // data URI — same-origin, no CORS problem
+          img.src = src;
           setTimeout(() => resolve(null), 5000);
         });
 
@@ -244,26 +252,22 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
         ctx.clip();
         const img = images[i];
         if (img) {
-          // "cover" crop: fill circle without stretching, cropping from center
-          const D = AVATAR_R * 2; // diameter
+          // Apply grayscale filter
+          ctx.filter = 'grayscale(100%) brightness(1.1)';
+          const D = AVATAR_R * 2;
           const iw = img.naturalWidth || img.width;
           const ih = img.naturalHeight || img.height;
           const scale = Math.max(D / iw, D / ih);
-          const sw = D / scale; // source crop width
-          const sh = D / scale; // source crop height
-          const sx = (iw - sw) / 2; // center-crop x offset
-          const sy = (ih - sh) / 2; // center-crop y offset
-          ctx.drawImage(
-            img,
-            sx, sy, sw, sh,           // source rect (natural pixels, centered)
-            AVATAR_CX - AVATAR_R, AVATAR_CY - AVATAR_R, D, D  // dest rect
-          );
-
+          const sw = D / scale;
+          const sh = D / scale;
+          const sx = (iw - sw) / 2;
+          const sy = (ih - sh) / 2;
+          ctx.drawImage(img, sx, sy, sw, sh, AVATAR_CX - AVATAR_R, AVATAR_CY - AVATAR_R, D, D);
+          ctx.filter = 'none';
         } else {
-          // Fallback: initials circle
-          ctx.fillStyle = partyColor + '22';
+          ctx.fillStyle = '#1f2937';
           ctx.fillRect(AVATAR_CX - AVATAR_R, AVATAR_CY - AVATAR_R, AVATAR_R * 2, AVATAR_R * 2);
-          ctx.fillStyle = partyColor;
+          ctx.fillStyle = '#ffffff';
           ctx.font = 'bold 22px Arial';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -275,8 +279,8 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
         // Avatar ring
         ctx.beginPath();
         ctx.arc(AVATAR_CX, AVATAR_CY, AVATAR_R, 0, Math.PI * 2);
-        ctx.strokeStyle = partyColor + '88';
-        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.lineWidth = 2;
         ctx.stroke();
 
         // Rank badge (top-left corner of avatar)
