@@ -8,6 +8,7 @@ export interface Candidate {
   votes: number;
   voteHistory: number[];
   image: string;
+  image_b64?: string; // base64 data URI for CORS-free canvas use
 }
 
 export interface Constituency {

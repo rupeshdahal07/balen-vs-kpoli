@@ -77,6 +77,13 @@ const Topbar = () => {
               <option key={c.value} value={c.value}>{c.label}</option>
             ))}
           </select>
+          {/* Hidden label for canvas image generation */}
+          <span
+            data-chetra-label
+            className="sr-only"
+          >
+            {chetras.find(c => c.value === chetraId)?.label?.toUpperCase() || 'NEPAL ELECTION LIVE'}
+          </span>
         </div>
 
         <div className="hidden sm:block text-xs md:text-sm text-slate-500 dark:text-slate-400 ml-2 whitespace-nowrap">

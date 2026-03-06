@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import requests
+import base64
 from bs4 import BeautifulSoup
 import re
 
@@ -20,6 +21,18 @@ headers = {
 
 # Mapping of Nepali numbers to English for parsing vote counts
 nepali_to_english = str.maketrans('०१२३४५६७८९', '0123456789')
+
+def fetch_image_b64(url: str) -> str:
+    """Fetch image and return as base64 data URI for CORS-free canvas use."""
+    try:
+        r = requests.get(url, headers=headers, timeout=6)
+        if r.status_code == 200:
+            ct = r.headers.get('Content-Type', 'image/jpeg').split(';')[0].strip()
+            b64 = base64.b64encode(r.content).decode('utf-8')
+            return f"data:{ct};base64,{b64}"
+    except Exception:
+        pass
+    return ""
 
 @app.get("/api/election-data")
 def get_election_data(
@@ -82,11 +95,15 @@ def get_election_data(
 
             disp_name = f"{name} ({constituency})" if constituency else name
 
+            # Embed image as base64 so frontend canvas can draw it without CORS
+            image_b64 = fetch_image_b64(image) if image else ""
+
             candidates.append({
                 "id": f"cand_{i}",
                 "name": disp_name,
                 "party": party,
                 "image": image,
+                "image_b64": image_b64,
                 "votes": votes
             })
             

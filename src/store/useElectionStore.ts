@@ -77,7 +77,8 @@ export const useElectionStore = create<ElectionState>()(
                   partyNameOriginal: liveData.party || existingCandidate?.partyNameOriginal || "",
                   votes: liveData.votes,
                   voteHistory: newHistory,
-                  image: liveData.image || existingCandidate?.image || ""
+                  image: liveData.image || existingCandidate?.image || "",
+                  image_b64: liveData.image_b64 || existingCandidate?.image_b64 || ""
                 };
               }).sort((a: any, b: any) => b.votes - a.votes);
 
