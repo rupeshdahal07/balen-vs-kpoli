@@ -178,7 +178,7 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
 
       ctx.fillStyle = '#374151';
       ctx.font = '14px "Arial", sans-serif';
-      ctx.fillText('DIRECT ELECTION – 2082', W / 2, 78);
+      ctx.fillText('ELECTION – 2082', W / 2, 78);
 
       // LIVE badge
       ctx.fillStyle = '#dc2626';
@@ -295,19 +295,31 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
 
         // Candidate name (black, uppercase)
         const textX = AVATAR_CX + AVATAR_R + 18;
+        const maxTextW = cardW - textX + cardX - 75; // leave room for % pill
         ctx.fillStyle = '#111827';
-        ctx.font = 'bold 16px "Arial", sans-serif';
+        ctx.font = 'bold 15px "Arial", sans-serif';
         ctx.textAlign = 'left';
         let displayName = cand.name.toUpperCase();
-        while (ctx.measureText(displayName).width > cardW - textX + cardX - 70 && displayName.length > 4)
+        while (ctx.measureText(displayName).width > maxTextW && displayName.length > 4)
           displayName = displayName.slice(0, -1);
         if (displayName !== cand.name.toUpperCase()) displayName += '…';
-        ctx.fillText(displayName, textX, cardY + CARD_H / 2 - 8);
+        ctx.fillText(displayName, textX, cardY + CARD_H / 2 - 16);
+
+        // Party name (in party color)
+        const partyName = cand.partyNameOriginal || cand.party || '';
+        ctx.fillStyle = partyColor;
+        ctx.font = '12px "Arial", sans-serif';
+        let displayParty = partyName;
+        while (ctx.measureText(displayParty).width > maxTextW && displayParty.length > 4)
+          displayParty = displayParty.slice(0, -1);
+        if (displayParty !== partyName) displayParty += '…';
+        ctx.fillText(displayParty, textX, cardY + CARD_H / 2 + 2);
 
         // Vote count (bold red)
         ctx.fillStyle = '#dc2626';
-        ctx.font = 'bold 20px "Arial", sans-serif';
-        ctx.fillText(`Vote Count : ${cand.votes.toLocaleString()}`, textX, cardY + CARD_H / 2 + 18);
+        ctx.font = 'bold 18px "Arial", sans-serif';
+        ctx.fillText(`Vote Count : ${cand.votes.toLocaleString()}`, textX, cardY + CARD_H / 2 + 22);
+
 
         // Party badge pill (right side)
         const pctOfTotal = totalVotes > 0 ? ((cand.votes / totalVotes) * 100).toFixed(1) : '—';
@@ -322,7 +334,12 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
 
       // ── Footer ──
       const now = new Date();
-      const timeStr = now.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+      const timeStr = now.toLocaleString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'Asia/Kathmandu'
+      });
       ctx.fillStyle = '#9ca3af';
       ctx.font = '13px "Arial", sans-serif';
       ctx.textAlign = 'right';
