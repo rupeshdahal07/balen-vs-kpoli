@@ -183,7 +183,7 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
       // LIVE badge
       ctx.fillStyle = '#dc2626';
       ctx.beginPath();
-      ctx.arc(W / 2 - 26, 104, 5, 0, Math.PI * 2);
+      ctx.arc(W / 2 - 40, 104, 5, 0, Math.PI * 2);
       ctx.fill();
       ctx.fillStyle = '#dc2626';
       ctx.font = 'bold 12px "Arial", sans-serif';
@@ -330,7 +330,7 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
       ctx.fillStyle = '#d1d5db';
       ctx.font = '11px Arial';
       ctx.textAlign = 'center';
-      ctx.fillText('election.onlinekhabar.com', W / 2, H - 16);
+      ctx.fillText('allnepalinews.com', W / 2, H - 16);
       ctx.textAlign = 'left';
 
       // ── Export / Share ──
