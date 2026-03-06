@@ -115,105 +115,20 @@ function VoteSplash({ votes, isTopScorer }: { votes: number, isTopScorer?: boole
    );
 }
 
-function ThugLifeIntro({ topCandidate }: { topCandidate: Candidate }) {
-   if (!topCandidate) return null;
-
-   return (
-      <motion.div
-         initial={{ opacity: 0 }}
-         animate={{ opacity: 1 }}
-         exit={{ opacity: 0, scale: 1.1 }}
-         transition={{ duration: 0.6 }}
-         className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md pointer-events-none overflow-hidden"
-      >
-         <motion.div 
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.7, type: "spring", bounce: 0.4 }}
-            className="relative flex flex-col items-center"
-         >
-            <div className="relative w-56 h-56 md:w-72 md:h-72">
-               {/* Candidate Image transitioning to grayscale */}
-               <motion.img 
-                  src={topCandidate.image} 
-                  className="w-full h-full object-cover rounded-full border-[6px] border-white shadow-[0_0_50px_rgba(255,255,255,0.4)]"
-                  animate={{ 
-                    filter: ["grayscale(0%)", "grayscale(100%) brightness(0.9) contrast(1.2)"] 
-                  }}
-                  transition={{ delay: 1.2, duration: 0.5 }}
-               />
-               
-               {/* Thug Life Glasses */}
-               <motion.div 
-                  initial={{ y: -800, opacity: 0, rotate: 1080, scale: 0.2 }}
-                  animate={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
-                  transition={{ delay: 1.4, duration: 2, type: 'spring', damping: 14, stiffness: 50 }}
-                  className="absolute left-1/2 -translate-x-1/2 top-[18%] md:top-[22%] text-[90px] md:text-[120px] drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)] brightness-0 contrast-200"
-               >
-                  🕶️
-               </motion.div>
-               
-               {/* Blunt / cigarette */}
-               <motion.div
-                  initial={{ x: -100, opacity: 0, rotate: 0 }}
-                  animate={{ x: 0, opacity: 1, rotate: -25 }}
-                  transition={{ delay: 1.8, type: 'spring', damping: 12 }}
-                  className="absolute bottom-[10%] right-[10%] text-5xl md:text-7xl drop-shadow-xl"
-               >
-                  🚬
-               </motion.div>
-            </div>
-            
-            {/* THUG LIFE Text */}
-            <motion.h1
-               initial={{ scale: 3, opacity: 0 }}
-               animate={{ scale: 1, opacity: 1 }}
-               transition={{ delay: 2.2, type: 'spring', bounce: 0.6 }}
-               className="mt-6 text-6xl md:text-8xl font-black text-white tracking-[0.2em] transform -skew-x-6 drop-shadow-[0_5px_0px_#000]"
-               style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
-            >
-               THUG
-            </motion.h1>
-            <motion.h1
-               initial={{ scale: 3, opacity: 0 }}
-               animate={{ scale: 1, opacity: 1 }}
-               transition={{ delay: 2.5, type: 'spring', bounce: 0.6 }}
-               className="text-6xl md:text-8xl font-black text-white tracking-[0.2em] transform -skew-x-6 drop-shadow-[0_5px_0px_#000]"
-               style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
-            >
-               LIFE
-            </motion.h1>
-         </motion.div>
-      </motion.div>
-   );
-}
-
 export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
   // Sort candidates by votes (descending for race ranking)
   const sorted = [...candidates].sort((a, b) => b.votes - a.votes).slice(0, 6);
-  const topCandidate = sorted[0];
   
-  const [showIntro, setShowIntro] = useState(true);
-  const [showRigPrompt, setShowRigPrompt] = useState(true);
-
-  useEffect(() => {
-     // Intro lasts for 4.5 seconds
-     const timer = setTimeout(() => setShowIntro(false), 4500);
-     return () => clearTimeout(timer);
-  }, []);
+//   const [showRigPrompt, setShowRigPrompt] = useState(true);
 
   // To avoid overflowing layout out of the screen, we need an inner wrapper 
   // with x-axis lines extending properly.
   
   return (
     <>
-      <AnimatePresence>
-        {showIntro && topCandidate && <ThugLifeIntro topCandidate={topCandidate} />}
-      </AnimatePresence>
-
       {/* Floating Permission Prompt */}
-      <AnimatePresence>
-         {showRigPrompt && !showIntro && (
+      {/* <AnimatePresence>
+         {showRigPrompt && (
             <motion.div 
                initial={{ y: 50, opacity: 0, scale: 0.9 }}
                animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -244,7 +159,7 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
                </div>
             </motion.div>
          )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       <div className="w-full bg-white/70 dark:bg-darkcard/80 backdrop-blur-xl rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-white/50 dark:border-slate-700/50 p-4 md:p-6 overflow-x-hidden relative">
        <div className="flex items-center justify-center gap-3 mb-4 md:mb-6">
