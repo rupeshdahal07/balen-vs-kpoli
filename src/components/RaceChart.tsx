@@ -8,7 +8,62 @@ interface RaceChartProps {
   totalVotes: number;
 }
 
-function VoteSplash({ votes }: { votes: number }) {
+let audioCtx: AudioContext | null = null;
+export let isBellRigged = false;
+
+export const rigTheBell = () => {
+  isBellRigged = true;
+  if (!audioCtx) {
+    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    if (AudioContext) audioCtx = new AudioContext();
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+};
+
+const playBellSound = () => {
+  if (!isBellRigged) return; // Silently avoid playing if user hasn't rigged it yet
+  
+  try {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContext) return;
+      audioCtx = new AudioContext();
+    }
+    
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    
+    const ctx = audioCtx;
+    // Bell-like frequencies
+    const frequencies = [880, 1760, 2637];
+    
+    frequencies.forEach(freq => {
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      
+      osc.type = 'triangle'; // triangle gives a nice bell tone
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      
+      // Attack and release envelope for a "ping"
+      gainNode.gain.setValueAtTime(0, ctx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.5 / frequencies.length, ctx.currentTime + 0.02);
+      gainNode.gain.setTargetAtTime(0, ctx.currentTime + 0.02, 0.2); // gentle decay
+      
+      osc.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      
+      osc.start();
+      osc.stop(ctx.currentTime + 1.5);
+    });
+  } catch (e) {
+    console.log("Audio playback blocked:", e);
+  }
+};
+
+function VoteSplash({ votes, isTopScorer }: { votes: number, isTopScorer?: boolean }) {
    const prevRef = useRef(votes);
    const [diff, setDiff] = useState(0);
    const [key, setKey] = useState(0);
@@ -18,9 +73,12 @@ function VoteSplash({ votes }: { votes: number }) {
       if (votes > prev) {
          setDiff(votes - prev);
          setKey(Date.now());
+         if (isTopScorer) {
+            playBellSound();
+         }
       }
       prevRef.current = votes;
-   }, [votes]);
+   }, [votes, isTopScorer]);
 
    // Auto-clear diffusion after animation starts so it fades out gracefully
    useEffect(() => {
@@ -37,26 +95,158 @@ function VoteSplash({ votes }: { votes: number }) {
          <motion.div
             key={key}
             initial={{ opacity: 0, y: 10, x: -10, scale: 0.5, rotate: -15 }}
-            animate={{ opacity: 1, y: -45, x: 15, scale: 1.3, rotate: 10 }}
-            exit={{ opacity: 0, y: -60, scale: 0.8 }}
+            animate={{ opacity: 1, y: -55, x: 25, scale: isTopScorer ? 1.5 : 1.3, rotate: 10 }}
+            exit={{ opacity: 0, y: -80, scale: 0.8 }}
             transition={{ duration: 1.5, type: "spring", stiffness: 100 }}
-            className="absolute top-0 right-0 text-green-400 dark:text-green-300 font-black text-xl md:text-2xl z-50 drop-shadow-[0_0_10px_rgba(74,222,128,0.8)] pointer-events-none whitespace-nowrap"
+            className={`absolute top-0 right-0 ${isTopScorer ? 'text-yellow-400 dark:text-yellow-300' : 'text-green-400 dark:text-green-300'} font-black text-xl md:text-3xl z-50 drop-shadow-[0_0_15px_rgba(74,222,128,0.8)] pointer-events-none whitespace-nowrap`}
          >
-            +{diff} 🚀
+            +{diff} 
+            {isTopScorer ? (
+               <motion.span
+                  animate={{ rotate: [0, -40, 40, -40, 40, 0] }}
+                  transition={{ duration: 0.6, repeat: Infinity }}
+                  className="inline-block drop-shadow-[0_0_20px_rgba(250,204,21,1)] ml-1"
+               >
+                  🔔
+               </motion.span>
+            ) : ' 🚀'}
          </motion.div>
       </AnimatePresence>
+   );
+}
+
+function ThugLifeIntro({ topCandidate }: { topCandidate: Candidate }) {
+   if (!topCandidate) return null;
+
+   return (
+      <motion.div
+         initial={{ opacity: 0 }}
+         animate={{ opacity: 1 }}
+         exit={{ opacity: 0, scale: 1.1 }}
+         transition={{ duration: 0.6 }}
+         className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md pointer-events-none overflow-hidden"
+      >
+         <motion.div 
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.7, type: "spring", bounce: 0.4 }}
+            className="relative flex flex-col items-center"
+         >
+            <div className="relative w-56 h-56 md:w-72 md:h-72">
+               {/* Candidate Image transitioning to grayscale */}
+               <motion.img 
+                  src={topCandidate.image} 
+                  className="w-full h-full object-cover rounded-full border-[6px] border-white shadow-[0_0_50px_rgba(255,255,255,0.4)]"
+                  animate={{ 
+                    filter: ["grayscale(0%)", "grayscale(100%) brightness(0.9) contrast(1.2)"] 
+                  }}
+                  transition={{ delay: 1.2, duration: 0.5 }}
+               />
+               
+               {/* Thug Life Glasses */}
+               <motion.div 
+                  initial={{ y: -800, opacity: 0, rotate: 1080, scale: 0.2 }}
+                  animate={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
+                  transition={{ delay: 1.4, duration: 2, type: 'spring', damping: 14, stiffness: 50 }}
+                  className="absolute left-1/2 -translate-x-1/2 top-[18%] md:top-[22%] text-[90px] md:text-[120px] drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)] brightness-0 contrast-200"
+               >
+                  🕶️
+               </motion.div>
+               
+               {/* Blunt / cigarette */}
+               <motion.div
+                  initial={{ x: -100, opacity: 0, rotate: 0 }}
+                  animate={{ x: 0, opacity: 1, rotate: -25 }}
+                  transition={{ delay: 1.8, type: 'spring', damping: 12 }}
+                  className="absolute bottom-[10%] right-[10%] text-5xl md:text-7xl drop-shadow-xl"
+               >
+                  🚬
+               </motion.div>
+            </div>
+            
+            {/* THUG LIFE Text */}
+            <motion.h1
+               initial={{ scale: 3, opacity: 0 }}
+               animate={{ scale: 1, opacity: 1 }}
+               transition={{ delay: 2.2, type: 'spring', bounce: 0.6 }}
+               className="mt-6 text-6xl md:text-8xl font-black text-white tracking-[0.2em] transform -skew-x-6 drop-shadow-[0_5px_0px_#000]"
+               style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
+            >
+               THUG
+            </motion.h1>
+            <motion.h1
+               initial={{ scale: 3, opacity: 0 }}
+               animate={{ scale: 1, opacity: 1 }}
+               transition={{ delay: 2.5, type: 'spring', bounce: 0.6 }}
+               className="text-6xl md:text-8xl font-black text-white tracking-[0.2em] transform -skew-x-6 drop-shadow-[0_5px_0px_#000]"
+               style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
+            >
+               LIFE
+            </motion.h1>
+         </motion.div>
+      </motion.div>
    );
 }
 
 export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
   // Sort candidates by votes (descending for race ranking)
   const sorted = [...candidates].sort((a, b) => b.votes - a.votes).slice(0, 6);
+  const topCandidate = sorted[0];
   
+  const [showIntro, setShowIntro] = useState(true);
+  const [showRigPrompt, setShowRigPrompt] = useState(true);
+
+  useEffect(() => {
+     // Intro lasts for 4.5 seconds
+     const timer = setTimeout(() => setShowIntro(false), 4500);
+     return () => clearTimeout(timer);
+  }, []);
+
   // To avoid overflowing layout out of the screen, we need an inner wrapper 
   // with x-axis lines extending properly.
   
   return (
-    <div className="w-full bg-white/70 dark:bg-darkcard/80 backdrop-blur-xl rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-white/50 dark:border-slate-700/50 p-4 md:p-6 overflow-x-hidden relative">
+    <>
+      <AnimatePresence>
+        {showIntro && topCandidate && <ThugLifeIntro topCandidate={topCandidate} />}
+      </AnimatePresence>
+
+      {/* Floating Permission Prompt */}
+      <AnimatePresence>
+         {showRigPrompt && !showIntro && (
+            <motion.div 
+               initial={{ y: 50, opacity: 0, scale: 0.9 }}
+               animate={{ y: 0, opacity: 1, scale: 1 }}
+               exit={{ y: 50, opacity: 0, scale: 0.9 }}
+               transition={{ type: "spring", bounce: 0.4 }}
+               className="fixed bottom-6 right-6 z-[90] bg-white dark:bg-slate-800 backdrop-blur-xl p-4 md:p-5 rounded-2xl shadow-2xl border border-yellow-400/40 dark:border-yellow-500/30 w-[85%] sm:w-80 flex flex-col gap-3"
+            >
+               <div className="flex items-start gap-4">
+                  <div className="text-3xl md:text-4xl animate-bounce">🔔</div>
+                  <div>
+                     <h4 className="font-extrabold text-slate-800 dark:text-white text-sm md:text-base tracking-wide uppercase text-yellow-500">Rig the Bell?</h4>
+                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Do you want to enable epic sound effects when the top scorer gets new votes?</p>
+                  </div>
+               </div>
+               <div className="flex justify-end gap-2 mt-2">
+                  <button 
+                     onClick={() => setShowRigPrompt(false)}
+                     className="px-4 py-2 font-bold text-xs text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 rounded-lg transition-colors"
+                  >
+                     Keep Quiet 🤫
+                  </button>
+                  <button 
+                     onClick={() => { rigTheBell(); setShowRigPrompt(false); }}
+                     className="px-4 py-2 font-black text-xs bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-amber-950 rounded-lg shadow-[0_0_15px_rgba(250,204,21,0.5)] transition-all transform hover:scale-105 active:scale-95 uppercase tracking-widest"
+                  >
+                     Rig It! 🚀
+                  </button>
+               </div>
+            </motion.div>
+         )}
+      </AnimatePresence>
+
+      <div className="w-full bg-white/70 dark:bg-darkcard/80 backdrop-blur-xl rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-white/50 dark:border-slate-700/50 p-4 md:p-6 overflow-x-hidden relative">
        <div className="flex items-center justify-center gap-3 mb-4 md:mb-6">
           <div className="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent flex-1"></div>
           <h3 className="text-xl md:text-2xl font-black text-center dark:text-white uppercase tracking-widest text-slate-800 flex items-center gap-2">
@@ -126,7 +316,7 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
 
                          {/* Avatar at the right end of the bar */}
                          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-10 h-10 md:w-14 md:h-14 z-20 group relative">
-                            <VoteSplash votes={cand.votes} />
+                            <VoteSplash votes={cand.votes} isTopScorer={index === 0} />
                             <motion.div
                                whileHover={{ scale: 1.1, rotate: 5 }}
                                className="w-full h-full"
@@ -149,12 +339,24 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
                       </motion.div>
                    </div>
                    
-                   {/* Winner Trophy placed strictly at 100% position on the right */}
-                   <div className="absolute right-0 sm:right-2 md:right-8 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex items-center justify-center pointer-events-none z-30">
+                   {/* Winner Trophy and Ringing Bell placed strictly at 100% position on the right */}
+                   <div className="absolute right-[-10px] sm:right-2 md:right-8 top-1/2 -translate-y-1/2 flex items-center justify-center gap-1 sm:gap-3 pointer-events-none z-30">
                        {index === 0 && cand.votes > 0 && (
-                          <div className="relative animate-bounce drop-shadow-xl text-xl sm:text-3xl md:text-5xl" style={{ animationDuration: '2s' }}>
-                             🏆
-                          </div>
+                          <>
+                             {/* Persistent Ringing Bell for Top Scorer */}
+                             <motion.div
+                                animate={{ rotate: [0, -35, 35, -35, 35, 0] }}
+                                transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.1, ease: "easeInOut" }}
+                                className="text-xl sm:text-3xl md:text-5xl drop-shadow-[0_0_20px_rgba(250,204,21,1)] origin-top"
+                             >
+                                🔔
+                             </motion.div>
+                             
+                             {/* Bouncing Trophy */}
+                             <div className="relative animate-bounce drop-shadow-xl text-xl sm:text-3xl md:text-5xl" style={{ animationDuration: '2s' }}>
+                                🏆
+                             </div>
+                          </>
                        )}
                    </div>
                  </motion.div>
@@ -163,5 +365,6 @@ export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
          </AnimatePresence>
        </div>
     </div>
+    </>
   );
 }
