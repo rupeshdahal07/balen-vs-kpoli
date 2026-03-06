@@ -108,7 +108,7 @@ export const useElectionStore = create<ElectionState>()(
 
     intervalId = window.setInterval(() => {
       fetchLiveData();
-    }, 60000); // 60 seconds simulate
+    }, 120000); // 120 seconds simulate
   },
   stopLiveUpdates: () => {
     if (intervalId) {
