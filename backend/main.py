@@ -108,7 +108,7 @@ def get_election_data(
             })
             
         candidates.sort(key=lambda x: x["votes"], reverse=True)
-        top_candidates = candidates[:15]
+        top_candidates = candidates[:20]
             
         return {
             "constituency": "Nepal Election Live",
