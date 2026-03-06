@@ -1,12 +1,40 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getGradientClass, getColorStyle } from '../data/mockData';
 import type { Candidate } from '../data/mockData';
 import AnimatedNumber from './AnimatedNumber';
+
 interface RaceChartProps {
   candidates: Candidate[];
   totalVotes: number;
 }
+
+// Map Nepali party names → brand colors
+const PARTY_COLOR_MAP: Record<string, string> = {
+  "नेपाली कांग्रेस":             "#1a56db",
+  "Nepali Congress":              "#1a56db",
+  "नेकपा एमाले":                 "#e02424",
+  "CPN UML":                      "#e02424",
+  "नेपाली कम्युनिस्ट पार्टी":   "#dc2626",
+  "Maoist":                       "#dc2626",
+  "नेपाल कम्युनिस्ट पार्टी (माओवादी)": "#dc2626",
+  "राष्ट्रिय स्वतन्त्र पार्टी": "#7c3aed",
+  "RSP":                          "#7c3aed",
+  "राष्ट्रिय प्रजातन्त्र पार्टी": "#059669",
+  "RPP":                          "#059669",
+  "जनमत पार्टी":                 "#d97706",
+  "Janamat":                      "#d97706",
+  "जनता समाजवादी पार्टी, नेपाल": "#db2777",
+  "JSP":                          "#db2777",
+  "स्वतन्त्र":                   "#6b7280",
+  "Independent":                  "#6b7280",
+};
+
+// Fallback palette for unknown parties
+const FALLBACK_COLORS = [
+  "#0891b2", "#d97706", "#7c3aed", "#059669",
+  "#db2777", "#16a34a", "#9333ea", "#ea580c",
+  "#0284c7", "#ca8a04", "#be123c", "#0d9488",
+];
 
 let audioCtx: AudioContext | null = null;
 export let isBellRigged = false;
@@ -17,269 +45,219 @@ export const rigTheBell = () => {
     const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
     if (AudioContext) audioCtx = new AudioContext();
   }
-  if (audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
 };
 
 const playBellSound = () => {
-  if (!isBellRigged) return; // Silently avoid playing if user hasn't rigged it yet
-  
+  if (!isBellRigged) return;
   try {
     if (!audioCtx) {
       const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
       if (!AudioContext) return;
       audioCtx = new AudioContext();
     }
-    
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-    
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     const ctx = audioCtx;
-    // Bell-like frequencies
-    const frequencies = [880, 1760, 2637];
-    
-    frequencies.forEach(freq => {
+    [880, 1760, 2637].forEach(freq => {
       const osc = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-      
-      osc.type = 'triangle'; // triangle gives a nice bell tone
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
       osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      
-      // Attack and release envelope for a "ping"
-      gainNode.gain.setValueAtTime(0, ctx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.5 / frequencies.length, ctx.currentTime + 0.02);
-      gainNode.gain.setTargetAtTime(0, ctx.currentTime + 0.02, 0.2); // gentle decay
-      
-      osc.connect(gainNode);
-      gainNode.connect(ctx.destination);
-      
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.4 / 3, ctx.currentTime + 0.02);
+      gain.gain.setTargetAtTime(0, ctx.currentTime + 0.02, 0.2);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 1.5);
     });
-  } catch (e) {
-    console.log("Audio playback blocked:", e);
-  }
+  } catch (e) { /* silent */ }
 };
 
-function VoteSplash({ votes, isTopScorer }: { votes: number, isTopScorer?: boolean }) {
-   const prevRef = useRef(votes);
-   const [diff, setDiff] = useState(0);
-   const [key, setKey] = useState(0);
+function VoteSplash({ votes, color, isLeader }: { votes: number; color: string; isLeader: boolean }) {
+  const prevRef = useRef(votes);
+  const [diff, setDiff] = useState(0);
+  const [key, setKey] = useState(0);
 
-   useEffect(() => {
-      const prev = prevRef.current;
-      if (votes > prev) {
-         setDiff(votes - prev);
-         setKey(Date.now());
-         if (isTopScorer) {
-            playBellSound();
-         }
-      }
-      prevRef.current = votes;
-   }, [votes, isTopScorer]);
+  useEffect(() => {
+    const prev = prevRef.current;
+    if (votes > prev) {
+      setDiff(votes - prev);
+      setKey(Date.now());
+      if (isLeader) playBellSound();
+    }
+    prevRef.current = votes;
+  }, [votes, isLeader]);
 
-   // Auto-clear diffusion after animation starts so it fades out gracefully
-   useEffect(() => {
-      if (diff > 0) {
-         const timer = setTimeout(() => setDiff(0), 1500);
-         return () => clearTimeout(timer);
-      }
-   }, [diff, key]);
+  useEffect(() => {
+    if (diff > 0) {
+      const t = setTimeout(() => setDiff(0), 1800);
+      return () => clearTimeout(t);
+    }
+  }, [diff, key]);
 
-   if (diff === 0) return null;
+  if (!diff) return null;
 
-   return (
-      <AnimatePresence mode="popLayout">
-         <motion.div
-            key={key}
-            initial={{ opacity: 0, y: 10, x: -10, scale: 0.5, rotate: -15 }}
-            animate={{ opacity: 1, y: -55, x: 25, scale: isTopScorer ? 1.5 : 1.3, rotate: 10 }}
-            exit={{ opacity: 0, y: -80, scale: 0.8 }}
-            transition={{ duration: 1.5, type: "spring", stiffness: 100 }}
-            className={`absolute top-0 right-0 ${isTopScorer ? 'text-yellow-400 dark:text-yellow-300' : 'text-green-400 dark:text-green-300'} font-black text-xl md:text-3xl z-50 drop-shadow-[0_0_15px_rgba(74,222,128,0.8)] pointer-events-none whitespace-nowrap`}
-         >
-            +{diff} 
-            {isTopScorer ? (
-               <motion.span
-                  animate={{ rotate: [0, -40, 40, -40, 40, 0] }}
-                  transition={{ duration: 0.6, repeat: Infinity }}
-                  className="inline-block drop-shadow-[0_0_20px_rgba(250,204,21,1)] ml-1"
-               >
-                  🔔
-               </motion.span>
-            ) : ' 🚀'}
-         </motion.div>
-      </AnimatePresence>
-   );
+  return (
+    <AnimatePresence mode="popLayout">
+      <motion.div
+        key={key}
+        initial={{ opacity: 0, y: 8, scale: 0.6 }}
+        animate={{ opacity: 1, y: -52, scale: isLeader ? 1.4 : 1.1 }}
+        exit={{ opacity: 0, y: -80, scale: 0.7 }}
+        transition={{ duration: 1.4, type: 'spring', stiffness: 90 }}
+        className="absolute top-0 right-0 font-black text-lg md:text-2xl z-50 pointer-events-none whitespace-nowrap drop-shadow-lg"
+        style={{ color }}
+      >
+        +{diff.toLocaleString()} {isLeader ? '🔔' : '🚀'}
+      </motion.div>
+    </AnimatePresence>
+  );
 }
 
 export default function RaceChart({ candidates, totalVotes }: RaceChartProps) {
-  // Sort candidates by votes (descending for race ranking)
-  const sorted = [...candidates].sort((a, b) => b.votes - a.votes).slice(0, 6);
-  
-//   const [showRigPrompt, setShowRigPrompt] = useState(true);
+  const sorted = useMemo(
+    () => [...candidates].sort((a, b) => b.votes - a.votes),
+    [candidates]
+  );
 
-  // To avoid overflowing layout out of the screen, we need an inner wrapper 
-  // with x-axis lines extending properly.
-  
+  // Assign colors per party, reusing same color for same party
+  const partyColorCache = useMemo(() => {
+    const cache: Record<string, string> = {};
+    let fallbackIdx = 0;
+    for (const c of sorted) {
+      const key = c.party || c.partyNameOriginal || 'Unknown';
+      if (!cache[key]) {
+        cache[key] = PARTY_COLOR_MAP[key] || FALLBACK_COLORS[fallbackIdx++ % FALLBACK_COLORS.length];
+      }
+    }
+    return cache;
+  }, [sorted]);
+
+  const maxVotes = sorted[0]?.votes ?? 1;
+  // Show top candidates with votes, then rest
+  const withVotes = sorted.filter(c => c.votes > 0);
+  const withoutVotes = sorted.filter(c => c.votes === 0);
+  const displayCandidates = [...withVotes, ...withoutVotes.slice(0, Math.max(0, 15 - withVotes.length))];
+
   return (
-    <>
-      {/* Floating Permission Prompt */}
-      {/* <AnimatePresence>
-         {showRigPrompt && (
-            <motion.div 
-               initial={{ y: 50, opacity: 0, scale: 0.9 }}
-               animate={{ y: 0, opacity: 1, scale: 1 }}
-               exit={{ y: 50, opacity: 0, scale: 0.9 }}
-               transition={{ type: "spring", bounce: 0.4 }}
-               className="fixed bottom-6 right-6 z-[90] bg-white dark:bg-slate-800 backdrop-blur-xl p-4 md:p-5 rounded-2xl shadow-2xl border border-yellow-400/40 dark:border-yellow-500/30 w-[85%] sm:w-80 flex flex-col gap-3"
+    <div className="w-full space-y-3 md:space-y-4 select-none">
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-2 md:mb-4">
+        <div className="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent flex-1" />
+        <h3 className="text-base md:text-xl font-black text-slate-700 dark:text-slate-200 uppercase tracking-widest flex items-center gap-2 whitespace-nowrap">
+          <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse inline-block" />
+          Live Race
+        </h3>
+        <div className="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent flex-1" />
+      </div>
+
+      <div className="w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700/60 overflow-hidden">
+        {displayCandidates.map((cand, index) => {
+          const partyKey = cand.party || cand.partyNameOriginal || 'Unknown';
+          const color = partyColorCache[partyKey] ?? '#6b7280';
+          const pct = maxVotes > 0 ? (cand.votes / maxVotes) * 100 : 0;
+          const isLeader = index === 0 && cand.votes > 0;
+          const totalPct = totalVotes > 0 ? ((cand.votes / totalVotes) * 100).toFixed(1) : '0.0';
+
+          return (
+            <motion.div
+              key={cand.id}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.04 }}
+              className={`relative flex items-center gap-2 md:gap-4 px-3 md:px-5 py-2.5 md:py-3 border-b border-slate-100 dark:border-slate-700/40 last:border-b-0 ${isLeader ? 'bg-gradient-to-r from-yellow-50/60 to-transparent dark:from-yellow-900/10 dark:to-transparent' : 'hover:bg-slate-50/60 dark:hover:bg-slate-800/30'} transition-colors`}
             >
-               <div className="flex items-start gap-4">
-                  <div className="text-3xl md:text-4xl animate-bounce">🔔</div>
-                  <div>
-                     <h4 className="font-extrabold text-slate-800 dark:text-white text-sm md:text-base tracking-wide uppercase text-yellow-500">Rig the Bell?</h4>
-                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Do you want to enable epic sound effects when the top scorer gets new votes?</p>
+              {/* Rank Badge */}
+              <div
+                className={`shrink-0 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center font-black text-[10px] md:text-sm shadow-sm ${isLeader ? 'text-yellow-900' : 'text-white'}`}
+                style={{ backgroundColor: isLeader ? '#fbbf24' : color }}
+              >
+                {isLeader ? '🏆' : index + 1}
+              </div>
+
+              {/* Avatar */}
+              <div className="relative shrink-0">
+                <img
+                  src={cand.image}
+                  alt={cand.name}
+                  className="w-9 h-9 md:w-12 md:h-12 rounded-full object-cover border-2 shadow"
+                  style={{ borderColor: color }}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cand.name)}&backgroundColor=${color.replace('#', '')}`;
+                  }}
+                />
+                {isLeader && (
+                  <motion.div
+                    className="absolute -top-1 -right-1 text-base md:text-lg"
+                    animate={{ rotate: [-15, 15, -15, 15, 0] }}
+                    transition={{ duration: 0.6, repeat: Infinity, repeatDelay: 1.5 }}
+                  >
+                    🔔
+                  </motion.div>
+                )}
+              </div>
+
+              {/* Name + Party */}
+              <div className="min-w-0 w-[90px] md:w-[180px] shrink-0">
+                <div className="font-bold text-[11px] md:text-sm text-slate-800 dark:text-slate-100 truncate leading-tight">
+                  {cand.name}
+                </div>
+                <div
+                  className="text-[9px] md:text-xs font-semibold truncate mt-0.5"
+                  style={{ color }}
+                >
+                  {cand.partyNameOriginal || cand.party}
+                </div>
+              </div>
+
+              {/* Bar + Votes */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  {/* Bar track */}
+                  <div className="flex-1 h-5 md:h-7 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden relative">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${Math.max(pct, cand.votes > 0 ? 1 : 0)}%` }}
+                      transition={{ duration: 0.9, ease: 'easeOut', type: 'spring', damping: 22 }}
+                      className="h-full rounded-full relative overflow-hidden"
+                      style={{ background: `linear-gradient(90deg, ${color}cc, ${color})` }}
+                    >
+                      {/* Shimmer */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-pulse" />
+                    </motion.div>
+                    {/* Vote count inside or beside bar */}
+                    {cand.votes > 0 && (
+                      <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] md:text-xs font-black text-slate-600 dark:text-slate-300 tabular-nums">
+                        <AnimatedNumber value={cand.votes} />
+                      </div>
+                    )}
+                    {cand.votes === 0 && (
+                      <div className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] md:text-xs text-slate-400 dark:text-slate-500">
+                        No votes yet
+                      </div>
+                    )}
                   </div>
-               </div>
-               <div className="flex justify-end gap-2 mt-2">
-                  <button 
-                     onClick={() => setShowRigPrompt(false)}
-                     className="px-4 py-2 font-bold text-xs text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 rounded-lg transition-colors"
+
+                  {/* % of total */}
+                  <div
+                    className="shrink-0 w-[38px] md:w-[52px] text-right font-black text-[10px] md:text-sm tabular-nums"
+                    style={{ color }}
                   >
-                     Keep Quiet 🤫
-                  </button>
-                  <button 
-                     onClick={() => { rigTheBell(); setShowRigPrompt(false); }}
-                     className="px-4 py-2 font-black text-xs bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-amber-950 rounded-lg shadow-[0_0_15px_rgba(250,204,21,0.5)] transition-all transform hover:scale-105 active:scale-95 uppercase tracking-widest"
-                  >
-                     Rig It! 🚀
-                  </button>
-               </div>
+                    {totalPct}%
+                  </div>
+                </div>
+              </div>
+
+              {/* Vote splash animation */}
+              <div className="relative shrink-0 w-0 h-0 overflow-visible">
+                <VoteSplash votes={cand.votes} color={color} isLeader={isLeader} />
+              </div>
             </motion.div>
-         )}
-      </AnimatePresence> */}
-
-      <div className="w-full bg-white/70 dark:bg-darkcard/80 backdrop-blur-xl rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-white/50 dark:border-slate-700/50 p-4 md:p-6 overflow-x-hidden relative">
-       <div className="flex items-center justify-center gap-3 mb-4 md:mb-6">
-          <div className="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent flex-1"></div>
-          <h3 className="text-xl md:text-2xl font-black text-center dark:text-white uppercase tracking-widest text-slate-800 flex items-center gap-2">
-            <span className="text-red-500">Live</span> Competition
-          </h3>
-          <div className="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent flex-1"></div>
-       </div>
-
-       {/* X-axis structure */}
-       <div className="absolute top-0 bottom-0 left-[90px] sm:left-[120px] md:left-[220px] right-8 md:right-24 pointer-events-none mt-16 mb-6 border-b-2 border-slate-300 dark:border-slate-600">
-          {[0, 20, 40, 60, 80, 100].map((tick) => (
-             <div key={tick} className="absolute top-0 bottom-0 flex flex-col justify-end border-l border-slate-200 dark:border-slate-700/50" style={{ left: `${tick}%` }}>
-                <span className="text-[10px] sm:text-xs md:text-sm font-bold text-slate-400 absolute bottom-[-24px] md:bottom-[-30px] -translate-x-1/2">{tick}%</span>
-             </div>
-          ))}
-          <div className="absolute right-[-16px] md:right-[-40px] bottom-[-20px] md:bottom-[-32px] text-slate-400">
-             <svg width="20" height="20" className="md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </div>
-       </div>
-       
-       <div className="relative z-10 mt-6 mb-6 border-l-2 border-slate-400 dark:border-slate-500 ml-[90px] sm:ml-[120px] md:ml-[220px]">
-         <AnimatePresence>
-            {sorted.map((cand, index) => {
-               // Percentage calculated against max votes (lead) to 90% or total votes? 
-               // Standard race chart is relative to total votes. If total votes = 0, percentage is 0.
-               // We will scale it so 100% of the bar width = 100% of votes. Since no one ever gets 100% with multiple people,
-               // the bar won't hit the very right normally.
-               const maxScaleVotes = totalVotes > 0 ? totalVotes : 1; 
-               const percentage = (cand.votes / maxScaleVotes) * 100;
-               
-               const gradClass = getGradientClass(cand.party);
-               const textShadowColor = getColorStyle(cand.party);
-               
-               return (
-                 <motion.div
-                   key={cand.id}
-                   layout
-                   initial={{ opacity: 0, x: -50 }}
-                   animate={{ opacity: 1, x: 0 }}
-                   transition={{ duration: 0.6, type: "spring", stiffness: 50 }}
-                   className="flex items-center relative h-14 md:h-16 mb-4 md:mb-5"
-                 >
-                   {/* Name label on left */}
-                   <div className="absolute left-[-90px] sm:left-[-120px] md:left-[-220px] w-[85px] sm:w-[110px] md:w-[200px] text-right pr-2 md:pr-4 top-1/2 -translate-y-1/2 flex flex-col justify-center">
-                      <div className="font-bold text-slate-800 dark:text-slate-100 truncate text-[11px] sm:text-xs md:text-base leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                         {cand.name}
-                      </div>
-                      <div className="text-[9px] sm:text-[10px] md:text-sm text-slate-500 truncate font-medium mt-0.5 opacity-80">
-                         {cand.party}
-                      </div>
-                      <div className="text-[9px] sm:text-[10px] md:text-xs text-slate-700 dark:text-slate-300 font-extrabold mt-0.5 md:mt-1 tracking-wide">
-                         <AnimatedNumber value={cand.votes} /> <span className="text-slate-400 font-semibold opacity-70 hidden sm:inline">VOTES</span>
-                      </div>
-                   </div>
-                   
-                   {/* Progress Bar Container relative to 0-100% space (which spans the rest of the flex parent) */}
-                   <div className="w-full h-full relative pl-[2px] pr-8 sm:pr-12 md:pr-24">
-                      {/* Using percentage * 0.9 to reserve space for the image sticking out */}
-                       <motion.div 
-                         initial={{ width: 0 }}
-                         animate={{ width: `${percentage}%` }}
-                         transition={{ duration: 1, ease: 'easeOut', type: 'spring', damping: 20 }}
-                         className={`h-10 md:h-12 mt-1 md:mt-2 relative ${gradClass} rounded-r-full shadow-lg overflow-visible ${index === 0 ? "shadow-[0_0_20px_rgba(59,130,246,0.5)] border-b-2 border-white/20" : ""}`}
-                      >
-                         {/* Animated overlay for the bar for extra shine */}
-                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent slant-shine" />
-
-                         {/* Avatar at the right end of the bar */}
-                         <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-10 h-10 md:w-14 md:h-14 z-20 group relative">
-                            <VoteSplash votes={cand.votes} isTopScorer={index === 0} />
-                            <motion.div
-                               whileHover={{ scale: 1.1, rotate: 5 }}
-                               className="w-full h-full"
-                            >
-                               <img 
-                                  src={cand.image} 
-                                  alt={cand.name}
-                                  className={`w-full h-full rounded-full object-cover border-2 md:border-[3px] border-white dark:border-slate-800 shadow-xl bg-white transition-all duration-300 ${index === 0 && cand.votes > 0 ? "ring-4 ring-yellow-400 shadow-[0_0_25px_rgba(250,204,21,0.6)]" : "group-hover:ring-2 ring-slate-300"}`}
-                               />
-                            </motion.div>
-                         </div>
-                         
-                         {/* Percentage Under Avatar */}
-                         <div 
-                            className="absolute right-0 top-full translate-x-1/2 translate-y-1 md:translate-y-2 font-black text-[10px] sm:text-xs md:text-sm whitespace-nowrap"
-                            style={{ color: textShadowColor }}
-                         >
-                            {percentage.toFixed(2)}%
-                         </div>
-                      </motion.div>
-                   </div>
-                   
-                   {/* Winner Trophy and Ringing Bell placed strictly at 100% position on the right */}
-                   <div className="absolute right-[-10px] sm:right-2 md:right-8 top-1/2 -translate-y-1/2 flex items-center justify-center gap-1 sm:gap-3 pointer-events-none z-30">
-                       {index === 0 && cand.votes > 0 && (
-                          <>
-                             {/* Persistent Ringing Bell for Top Scorer */}
-                             <motion.div
-                                animate={{ rotate: [0, -35, 35, -35, 35, 0] }}
-                                transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.1, ease: "easeInOut" }}
-                                className="text-xl sm:text-3xl md:text-5xl drop-shadow-[0_0_20px_rgba(250,204,21,1)] origin-top"
-                             >
-                                🔔
-                             </motion.div>
-                             
-                             {/* Bouncing Trophy */}
-                             <div className="relative animate-bounce drop-shadow-xl text-xl sm:text-3xl md:text-5xl" style={{ animationDuration: '2s' }}>
-                                🏆
-                             </div>
-                          </>
-                       )}
-                   </div>
-                 </motion.div>
-               );
-            })}
-         </AnimatePresence>
-       </div>
+          );
+        })}
+      </div>
     </div>
-    </>
   );
 }

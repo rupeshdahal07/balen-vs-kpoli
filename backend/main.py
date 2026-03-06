@@ -8,13 +8,11 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-url = "https://election.onlinekhabar.com/wp-admin/admin-ajax.php?cd_state_id=4&cd_district_id=6&cd_chetra_id=25&cd_party_id=0&cd_gender=&action=get_home_candidate_directory_block"
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -24,8 +22,13 @@ headers = {
 nepali_to_english = str.maketrans('०१२३४५६७८९', '0123456789')
 
 @app.get("/api/election-data")
-def get_election_data():
+def get_election_data(
+    state_id: int = 0,
+    district_id: int = 0,
+    chetra_id: int = 0
+):
     try:
+        url = f"https://election.onlinekhabar.com/wp-admin/admin-ajax.php?cd_state_id={state_id}&cd_district_id={district_id}&cd_chetra_id={chetra_id}&cd_party_id=0&cd_gender=&action=get_home_candidate_directory_block"
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
@@ -62,6 +65,12 @@ def get_election_data():
             # Votes
             votes_str = tds[4].text.strip()
             
+            # Constituency
+            constituency = ""
+            chetra_col = tds[3].find("a")
+            if chetra_col:
+                constituency = chetra_col.text.strip()
+            
             # Scrape real votes
             votes = 0
             if votes_str and votes_str != '-':
@@ -71,17 +80,22 @@ def get_election_data():
                 if digit_str:
                     votes = int(digit_str)
 
+            disp_name = f"{name} ({constituency})" if constituency else name
+
             candidates.append({
-                "id": f"jhapa_5_{i}",
-                "name": name,
+                "id": f"cand_{i}",
+                "name": disp_name,
                 "party": party,
                 "image": image,
                 "votes": votes
             })
             
+        candidates.sort(key=lambda x: x["votes"], reverse=True)
+        top_candidates = candidates[:15]
+            
         return {
-            "constituency": "Jhapa - 5 (Live)",
-            "candidates": candidates
+            "constituency": "Nepal Election Live",
+            "candidates": top_candidates
         }
     except Exception as e:
         print(f"Error scraping data: {e}")
